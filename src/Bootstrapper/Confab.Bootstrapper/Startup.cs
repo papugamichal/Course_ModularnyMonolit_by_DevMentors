@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Confab.Modules.Conferences.API;
+using Confab.Shared.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -14,8 +16,10 @@ namespace Confab.Bootstrapper
     {
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddControllers();
+            services
+                .AddSharedInfrastructure()
+                .AddConferences()
+                ;
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -24,7 +28,8 @@ namespace Confab.Bootstrapper
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
+            app.UseSharedInfrastructure();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

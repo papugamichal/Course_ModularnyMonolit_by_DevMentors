@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -6,6 +6,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Confab.Shared.Abstraction\Confab.Shared.Abstraction.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNETCore.App" />
   </ItemGroup>
 
 </Project>
