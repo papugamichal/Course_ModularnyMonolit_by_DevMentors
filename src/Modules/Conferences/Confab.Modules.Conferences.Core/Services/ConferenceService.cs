@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Confab.Modules.Conferences.Core.DTO;
 using Confab.Modules.Conferences.Core.Entities;
+using Confab.Modules.Conferences.Core.Exceptions;
 using Confab.Modules.Conferences.Core.Policies;
 using Confab.Modules.Conferences.Core.Repositories;
 using Confab.Shared.Abstraction.Exceptions;

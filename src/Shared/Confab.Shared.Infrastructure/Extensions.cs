@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Confab.Shared.Abstraction;
 using Confab.Shared.Infrastructure.Api;
+using Confab.Shared.Infrastructure.Exceptions;
 using Confab.Shared.Infrastructure.Time;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -19,6 +20,7 @@ namespace Confab.Shared.Infrastructure
         {
             services
                 .AddSingleton<IClock, UtcClock>()
+                .AddErrorHandling()
                 .AddControllers()
                 .ConfigureApplicationPartManager(manager =>
                 {
@@ -32,6 +34,7 @@ namespace Confab.Shared.Infrastructure
         public static IApplicationBuilder UseSharedInfrastructure(
             this IApplicationBuilder app)
         {
+            app.UseErrorHanling();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

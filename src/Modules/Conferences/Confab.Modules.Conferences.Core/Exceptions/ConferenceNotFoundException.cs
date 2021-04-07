@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Confab.Shared.Abstraction.Exceptions;
 
-namespace Confab.Shared.Abstraction.Exceptions
+namespace Confab.Modules.Conferences.Core.Exceptions
 {
     public class ConferenceNotFoundException : ConfabException
     {
