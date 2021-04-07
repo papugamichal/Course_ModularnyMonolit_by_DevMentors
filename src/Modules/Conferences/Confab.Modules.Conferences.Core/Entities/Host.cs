@@ -11,7 +11,6 @@ namespace Confab.Modules.Conferences.Core.Entities
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public IEnumerable<Conference> Conferences { get; set; }
-
+        public IEnumerable<Conference> Conferences { get; set; } = Array.Empty<Conference>();
     }
 }

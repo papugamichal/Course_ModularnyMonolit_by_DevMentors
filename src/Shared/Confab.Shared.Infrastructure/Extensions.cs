@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 [assembly: InternalsVisibleTo("Confab.Bootstrapper")]
 namespace Confab.Shared.Infrastructure
 {
-    public static class Extensions
+    internal static class Extensions
     {
         public static IServiceCollection AddSharedInfrastructure(
             this IServiceCollection services)

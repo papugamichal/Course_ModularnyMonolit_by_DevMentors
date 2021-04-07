@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Confab.Modules.Conferences.API.Controllers
 {
+    [Route(BasePath + "/[controller]")]
     internal class HostsController : BaseController
     {
         private readonly IHostService hostService;
@@ -20,7 +21,7 @@ namespace Confab.Modules.Conferences.API.Controllers
         }
 
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<HostDetailsDto>> GetAsync(Guid id)
+        public async Task<ActionResult<HostDetailsDto>> Get(Guid id)
             => OkOrNotFound(await this.hostService.GetAsync(id));
 
         [HttpGet]
@@ -28,15 +29,14 @@ namespace Confab.Modules.Conferences.API.Controllers
             => Ok(await this.hostService.BrowseAsync());
 
         [HttpPost]
-        public async Task<ActionResult> AddAsync(HostDto dto)
+        public async Task<ActionResult> AddAsync([FromBody] HostDto dto)
         {
             await this.hostService.AddAsync(dto);
-            return CreatedAtAction(nameof(GetAsync), new { id = dto.Id }, null);
-
+            return CreatedAtAction(nameof(Get), new { id = dto.Id }, null);
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<ActionResult> UpdateAsync(Guid id, HostDetailsDto dto)
+        public async Task<ActionResult> UpdateAsync(Guid id, [FromBody] HostDetailsDto dto)
         {
             dto.Id = id;
             await this.hostService.UpdateAsync(dto);

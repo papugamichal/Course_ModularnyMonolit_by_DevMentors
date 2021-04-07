@@ -10,7 +10,7 @@ namespace Confab.Modules.Conferences.Core.Policies
 {
     internal interface IConferenceDeletionPolicy
     {
-        Task<bool> CanDeleteAsync(Conference host);
+        Task<bool> CanDeleteAsync(Conference confernce);
     }
 
     internal class ConferenceDeletionPolicy : IConferenceDeletionPolicy

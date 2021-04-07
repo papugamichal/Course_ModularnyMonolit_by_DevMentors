@@ -30,13 +30,6 @@ namespace Confab.Bootstrapper
             }
             
             app.UseSharedInfrastructure();
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-                endpoints.MapGet("/", context => context.Response.WriteAsync("Confab API!"));
-            });
         }
     }
 }
