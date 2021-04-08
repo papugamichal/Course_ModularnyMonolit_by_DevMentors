@@ -6,9 +6,7 @@ using Confab.Modules.Conferences.API;
 using Confab.Shared.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace Confab.Bootstrapper
 {
@@ -24,7 +22,6 @@ namespace Confab.Bootstrapper
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            
             app.UseSharedInfrastructure();
         }
     }
