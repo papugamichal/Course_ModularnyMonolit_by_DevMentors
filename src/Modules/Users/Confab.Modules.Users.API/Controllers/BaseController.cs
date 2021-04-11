@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Confab.Shared.Infrastructure.Api;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Confab.Modules.Users.API.Controllers
 {
     [ApiController]
+    [ProducesDefaultContentType]
     [Route(UsersModule.BasePath + "/[controller]")]
     internal class BaseController : ControllerBase
     {

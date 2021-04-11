@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Confab.Shared.Infrastructure.Api;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Confab.Modules.Conferences.API.Controllers
 {
     [ApiController] // np for Swagger
+    [ProducesDefaultContentType]
     [Route(ConferencesModule.BasePath + "/[controller]")]
     internal class BaseController : ControllerBase
     {
