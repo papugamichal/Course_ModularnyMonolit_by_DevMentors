@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Confab.Modules.Conferences.Core.DTO;
 using Confab.Modules.Conferences.Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Confab.Modules.Conferences.API.Controllers
 {
+    [Authorize(Policy = ConferencesModule.HostsPolicy)]
     [Route(ConferencesModule.BasePath + "/[controller]")]
     internal class HostsController : BaseController
     {
@@ -21,10 +23,12 @@ namespace Confab.Modules.Conferences.API.Controllers
         }
 
         [HttpGet("{id:guid}")]
+        [AllowAnonymous]
         public async Task<ActionResult<HostDetailsDto>> Get(Guid id)
             => OkOrNotFound(await this.hostService.GetAsync(id));
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<HostDetailsDto>> BrowseAsync()
             => Ok(await this.hostService.BrowseAsync());
 

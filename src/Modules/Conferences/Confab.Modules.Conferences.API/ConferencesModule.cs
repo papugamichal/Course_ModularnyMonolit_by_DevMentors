@@ -13,10 +13,16 @@ namespace Confab.Modules.Conferences.API
     internal class ConferencesModule : IModule
     {
         public const string BasePath = "conferences-module";
-
+        public const string ConfenerencesPolicy = "conferences";
+        public const string HostsPolicy = "hosts";
         public string Name { get; } = "Conferences";
 
         public string Path => BasePath;
+
+        public IEnumerable<string> Policies { get; } = new[]
+        {
+            ConfenerencesPolicy, HostsPolicy
+        };
 
         public void Register(IServiceCollection services)
         {

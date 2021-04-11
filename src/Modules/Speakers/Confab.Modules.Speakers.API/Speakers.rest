@@ -28,7 +28,7 @@ Content-Type: application/json
 
 {
     "id": "{{speakerId}}",
-    "email": "email_updated@domain.com",
+    "email": "email_updated2@domain.com",
     "fullName": "Scott Hanselmann",
     "bio": "Software developer and more",
     "avatralUrl": ""

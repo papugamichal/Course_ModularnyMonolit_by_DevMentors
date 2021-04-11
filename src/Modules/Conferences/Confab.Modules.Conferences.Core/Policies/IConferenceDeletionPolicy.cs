@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Confab.Modules.Conferences.Core.Entities;
-using Confab.Shared.Abstraction;
+using Confab.Shared.Abstraction.Time;
 
 namespace Confab.Modules.Conferences.Core.Policies
 {

@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Confab.Modules.Speakers.Core.Services;
 using Confab.Modules.Speakers.Core.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Confab.Modules.Speakers.API.Controllers
 {
+    [Authorize(Policy = SpeakersModule.Policy)]
     [Route(SpeakersModule.BasePath + "/[controller]")]
     internal class SpeakersController : BaseController
     {
@@ -21,12 +23,14 @@ namespace Confab.Modules.Speakers.API.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<SpeakerDto>>> Get()
         {
             return Ok(await this.spekaerService.BrowseAsync());
         }
 
         [HttpGet("{id:guid}")]
+        [AllowAnonymous]
         public async Task<ActionResult<SpeakerDto>> Get(Guid id)
         {
             return OkOrNotFound(await this.spekaerService.GetAsync(id));

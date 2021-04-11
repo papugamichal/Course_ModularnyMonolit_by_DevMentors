@@ -1,19 +1,18 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using Confab.Modules.Users.Core;
+using Confab.Shared.Abstraction.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Confab.Modules.Speakers.Core;
-using Confab.Shared.Abstraction.Modules;
+using System;
 using System.Collections.Generic;
 
-namespace Confab.Modules.Speakers.API
+namespace Confab.Modules.Users.API
 {
-    internal class SpeakersModule : IModule
+    public class UsersModule : IModule
     {
-        public const string BasePath = "speakers-module";
-        public const string Policy = "speakers";
+        public const string BasePath = "users-module";
+        public const string Policy = "users";
 
-        public string Name { get; } = "Speakers";
+        public string Name { get; } = "Users";
 
         public string Path => BasePath;
 
