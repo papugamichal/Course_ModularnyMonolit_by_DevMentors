@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Confab.Modules.Conferences.API.Controllers
 {
-    [Route(BasePath)]
+    [Route(ConferencesModule.BasePath)]
     internal class HomeController : BaseController
     {
         [HttpGet]

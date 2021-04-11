@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using Confab.Shared.Abstraction;
+using Confab.Shared.Abstraction.Modules;
 using Confab.Shared.Infrastructure.Api;
 using Confab.Shared.Infrastructure.Exceptions;
 using Confab.Shared.Infrastructure.Postgres;
@@ -10,6 +12,7 @@ using Confab.Shared.Infrastructure.Services;
 using Confab.Shared.Infrastructure.Time;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,8 +22,29 @@ namespace Confab.Shared.Infrastructure
     internal static class Extensions
     {
         public static IServiceCollection AddSharedInfrastructure(
-            this IServiceCollection services)
+            this IServiceCollection services,
+            IList<Assembly> assemblies, 
+            IList<IModule> modules 
+            )
         {
+            var disablesModules = new List<string>();
+            using (var serviceProvider = services.BuildServiceProvider())
+            {
+                var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+                foreach (var (key, value) in configuration.AsEnumerable())
+                {
+                    if (!key.Contains("module:enabled"))
+                    {
+                        continue;
+                    }
+
+                    if (!bool.Parse(value))
+                    {
+                        disablesModules.Add(key.Split(":")[0]);
+                    }
+                }
+            }
+
             services
                 .AddHostedService<AppInitializer>()
                 .AddPostgres()
@@ -29,6 +53,18 @@ namespace Confab.Shared.Infrastructure
                 .AddControllers()
                 .ConfigureApplicationPartManager(manager =>
                 {
+                    var removedParts = new List<ApplicationPart>();
+                    foreach (var disabledModule in disablesModules)
+                    {
+                        var parts = manager.ApplicationParts.Where(x => x.Name.Contains(disabledModule, StringComparison.InvariantCultureIgnoreCase));
+                        removedParts.AddRange(parts);
+                    }
+
+                    foreach (var part in removedParts)
+                    {
+                        manager.ApplicationParts.Remove(part);
+                    }
+
                     manager.FeatureProviders.Add(new InternalControllerFeatureProvider());
                 })
                 ;
@@ -41,12 +77,6 @@ namespace Confab.Shared.Infrastructure
         {
             app.UseErrorHanling();
             app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-                endpoints.MapGet("/", context => context.Response.WriteAsync("Confab API!"));
-            });
 
             return app;
         }
