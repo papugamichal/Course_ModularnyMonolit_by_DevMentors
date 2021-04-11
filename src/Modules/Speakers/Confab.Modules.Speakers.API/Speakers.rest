@@ -1,0 +1,39 @@
+@url = http://localhost:5000/speakers-module
+@speakerId = B965DA19-E45D-4F27-97EA-C591E2DCD672
+
+###
+GET {{url}}
+
+###
+GET {{url}}/speakers
+
+###
+POST {{url}}/speakers
+Content-Type: application/json
+
+{
+    "id": "{{speakerId}}",
+    "email": "spekaer@domain.com",
+    "fullName": "Scott Hanselmann",
+    "bio": "Software developer and more",
+    "avatralUrl": ""
+}
+
+###
+GET {{url}}/speakers/{{speakerId}}
+
+###
+PUT {{url}}/speakers/{{speakerId}}
+Content-Type: application/json
+
+{
+    "id": "{{speakerId}}",
+    "email": "email_updated@domain.com",
+    "fullName": "Scott Hanselmann",
+    "bio": "Software developer and more",
+    "avatralUrl": ""
+}
+
+###
+DELETE {{url}}/speakers/{{speakerId}}
+

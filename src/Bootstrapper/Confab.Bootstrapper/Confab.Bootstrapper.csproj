@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Modules\Conferences\Confab.Modules.Conferences.API\Confab.Modules.Conferences.API.csproj" />
+    <ProjectReference Include="..\..\Modules\Speakers\Confab.Modules.Speakers.API\Confab.Modules.Speakers.API.csproj" />
     <ProjectReference Include="..\..\Shared\Confab.Shared.Infrastructure\Confab.Shared.Infrastructure.csproj" />
   </ItemGroup>
 
