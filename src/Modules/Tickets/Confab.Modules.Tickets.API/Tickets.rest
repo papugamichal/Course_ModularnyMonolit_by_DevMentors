@@ -1,0 +1,35 @@
+@url = http://localhost:5000/tickets-module 
+@conferenceId = e70a35fb-2623-49e3-95a1-56c60577f538
+@accessToken = secret
+
+### 
+GET {{url}}
+
+###
+GET {{url}}/sales/conferences/{{conferenceId}}
+
+### 
+GET {{url}}/sales/conferences/{{conferenceId}}/current
+
+### 
+POST {{url}}/sales/conferences/{{conferenceId}} 
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "conferenceId": "{{conferenceId}}", 
+    "name": "Early bird", 
+    "price": 1000,
+     "amount": 100,
+      "from": "2021-05-01", 
+      "to": "2021-05-08"
+
+}
+
+### 
+POST {{url}}/tickets/conferences/{{conferenceId}}/purchase 
+Authorization: Bearer {{accessToken}}
+
+### 
+GET {{url}}/tickets 
+Authorization: Bearer {{accessToken}}

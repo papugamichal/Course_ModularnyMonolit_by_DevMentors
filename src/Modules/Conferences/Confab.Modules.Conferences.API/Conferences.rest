@@ -1,6 +1,7 @@
 @url = http://localhost:5000/conferences-module
 @hostId = 3809e378-b503-4130-8134-2fa5e53e75b8
 @conferenceId = 4dab9776-3592-4f53-8779-2fdc171a5b02
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZTVkZjM1Yy01MzkyLTQzNjAtYWUzZi1mMzhkMTRkMjQ5YTciLCJ1bmlxdWVfbmFtZSI6ImFlNWRmMzVjLTUzOTItNDM2MC1hZTNmLWYzOGQxNGQyNDlhNyIsImp0aSI6Ijk3MjcwYzM5LWEyNmMtNGQxMC1iNmJjLTJhYjcxOWJhZDJiYyIsImlhdCI6IjE2MTgyNDI2MDM0MjAiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJ1c2VyIiwicGVybWlzc2lvbnMiOlsiY29uZmVyZW5jZXMiLCJob3N0cyIsInNwZWFrZXJzIiwidXNlcnMiXSwibmJmIjoxNjE4MjQyNjAzLCJleHAiOjE2MTgyNzg2MDMsImlzcyI6ImNvbmZhYiJ9.hKbMCK3lK4xzw21PhSQFPZJaToeE-YV2swK7Zqkm4Vs
 
 ###
 GET {{url}}
@@ -34,13 +35,14 @@ DELETE {{url}}/hosts/{{hostId}}
 
 ###
 POST {{url}}/conferences
+Authorization: Bearer {{accessToken}}
 Content-Type: application/json
 
 {
     "hostId": "{{hostId}}",
-    "name": "Conference #2",
-    "description": "Lorem ipsum 2",
-    "location": "Test321",
+    "name": "Conference #3",
+    "description": "Lorem ipsum3",
+    "location": "Test333",
     "from": "2021-05-01",
     "to": "2021-05-10",
     "participantsLimit": 100,

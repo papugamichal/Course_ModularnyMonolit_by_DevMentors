@@ -8,6 +8,8 @@ using Confab.Modules.Conferences.Core.Entities;
 using Confab.Modules.Conferences.Core.Exceptions;
 using Confab.Modules.Conferences.Core.Policies;
 using Confab.Modules.Conferences.Core.Repositories;
+using Confab.Modules.Conferences.Messages.Events;
+using Confab.Shared.Abstraction.Events;
 using Confab.Shared.Abstraction.Exceptions;
 
 namespace Confab.Modules.Conferences.Core.Services
@@ -17,15 +19,18 @@ namespace Confab.Modules.Conferences.Core.Services
         private readonly IConferenceRepository conferenceRepository;
         private readonly IHostRepository hostRepository;
         private readonly IConferenceDeletionPolicy conferenceDeletionPolicy;
+        private readonly IEventDispatcher eventDispatcher;
 
         public ConferenceService(
             IConferenceRepository conferenceRepository,
             IHostRepository hostRepository,
-            IConferenceDeletionPolicy conferenceDeletionPolicy)
+            IConferenceDeletionPolicy conferenceDeletionPolicy,
+            IEventDispatcher eventDispatcher)
         {
             this.conferenceRepository = conferenceRepository ?? throw new ArgumentNullException(nameof(conferenceRepository));
             this.hostRepository = hostRepository ?? throw new ArgumentNullException(nameof(hostRepository));
             this.conferenceDeletionPolicy = conferenceDeletionPolicy ?? throw new ArgumentNullException(nameof(conferenceDeletionPolicy));
+            this.eventDispatcher = eventDispatcher ?? throw new ArgumentNullException(nameof(eventDispatcher));
         }
 
         public async Task AddAsync(ConferenceDto dto)
@@ -36,7 +41,12 @@ namespace Confab.Modules.Conferences.Core.Services
             }
 
             dto.Id = Guid.NewGuid();
-            await this.conferenceRepository.AddAsync(Map<Conference>(dto));
+            var conference = Map<Conference>(dto);
+            await this.conferenceRepository.AddAsync(conference);
+            await this.eventDispatcher.PublishAsync(
+                new ConferenceCreated(
+                    conference.Id, conference.Name, conference.ParticipantsLimit,
+                    conference.From, conference.To));
         }
 
         public async Task<IReadOnlyList<ConferenceDto>> BrowseAsync()

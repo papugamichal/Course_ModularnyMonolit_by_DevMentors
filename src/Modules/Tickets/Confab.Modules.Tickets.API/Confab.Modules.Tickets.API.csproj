@@ -5,6 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="module.tickets.development.json" />
+    <None Remove="module.tickets.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="module.tickets.development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="module.tickets.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Confab.Modules.Tickets.Core\Confab.Modules.Tickets.Core.csproj" />
   </ItemGroup>
 
