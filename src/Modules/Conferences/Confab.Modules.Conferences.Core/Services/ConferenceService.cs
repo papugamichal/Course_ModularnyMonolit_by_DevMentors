@@ -9,7 +9,6 @@ using Confab.Modules.Conferences.Core.Exceptions;
 using Confab.Modules.Conferences.Core.Policies;
 using Confab.Modules.Conferences.Core.Repositories;
 using Confab.Modules.Conferences.Core.Events;
-using Confab.Shared.Abstraction.Modules;
 using Confab.Shared.Abstraction.Messaging;
 
 namespace Confab.Modules.Conferences.Core.Services
