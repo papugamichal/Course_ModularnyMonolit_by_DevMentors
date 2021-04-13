@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Confab.Modules.Conferences.Messages.Events
+namespace Confab.Modules.Conferences.Core.Events
 {
     public class ConferenceCreated : IEvent
     {

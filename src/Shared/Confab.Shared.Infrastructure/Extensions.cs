@@ -75,6 +75,7 @@ namespace Confab.Shared.Infrastructure
                 .AddSingleton<IContextFactory, ContextFactory>()
                 .AddTransient<IContext>(sp => sp.GetRequiredService<IContextFactory>().Create())
                 .AddModuleInfo(modules)
+                .AddModuleRequests(assemblies)
                 .AddAuth(modules)
                 .AddEvents(assemblies)
                 .AddHostedService<AppInitializer>()

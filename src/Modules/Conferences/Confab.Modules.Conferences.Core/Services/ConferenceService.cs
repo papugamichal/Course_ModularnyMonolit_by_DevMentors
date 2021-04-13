@@ -8,9 +8,8 @@ using Confab.Modules.Conferences.Core.Entities;
 using Confab.Modules.Conferences.Core.Exceptions;
 using Confab.Modules.Conferences.Core.Policies;
 using Confab.Modules.Conferences.Core.Repositories;
-using Confab.Modules.Conferences.Messages.Events;
-using Confab.Shared.Abstraction.Events;
-using Confab.Shared.Abstraction.Exceptions;
+using Confab.Modules.Conferences.Core.Events;
+using Confab.Shared.Abstraction.Modules;
 
 namespace Confab.Modules.Conferences.Core.Services
 {
@@ -19,18 +18,18 @@ namespace Confab.Modules.Conferences.Core.Services
         private readonly IConferenceRepository conferenceRepository;
         private readonly IHostRepository hostRepository;
         private readonly IConferenceDeletionPolicy conferenceDeletionPolicy;
-        private readonly IEventDispatcher eventDispatcher;
+        private readonly IModuleClient moduleClient;
 
         public ConferenceService(
             IConferenceRepository conferenceRepository,
             IHostRepository hostRepository,
             IConferenceDeletionPolicy conferenceDeletionPolicy,
-            IEventDispatcher eventDispatcher)
+            IModuleClient moduleClient)
         {
             this.conferenceRepository = conferenceRepository ?? throw new ArgumentNullException(nameof(conferenceRepository));
             this.hostRepository = hostRepository ?? throw new ArgumentNullException(nameof(hostRepository));
             this.conferenceDeletionPolicy = conferenceDeletionPolicy ?? throw new ArgumentNullException(nameof(conferenceDeletionPolicy));
-            this.eventDispatcher = eventDispatcher ?? throw new ArgumentNullException(nameof(eventDispatcher));
+            this.moduleClient = moduleClient ?? throw new ArgumentNullException(nameof(ConferenceService.moduleClient));
         }
 
         public async Task AddAsync(ConferenceDto dto)
@@ -43,7 +42,7 @@ namespace Confab.Modules.Conferences.Core.Services
             dto.Id = Guid.NewGuid();
             var conference = Map<Conference>(dto);
             await this.conferenceRepository.AddAsync(conference);
-            await this.eventDispatcher.PublishAsync(
+            await this.moduleClient.PublishAsync(
                 new ConferenceCreated(
                     conference.Id, conference.Name, conference.ParticipantsLimit,
                     conference.From, conference.To));
