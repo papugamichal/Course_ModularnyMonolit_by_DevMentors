@@ -11,6 +11,7 @@ using Confab.Shared.Infrastructure.Auth;
 using Confab.Shared.Infrastructure.Contexts;
 using Confab.Shared.Infrastructure.Events;
 using Confab.Shared.Infrastructure.Exceptions;
+using Confab.Shared.Infrastructure.Messaging;
 using Confab.Shared.Infrastructure.Modules;
 using Confab.Shared.Infrastructure.Postgres;
 using Confab.Shared.Infrastructure.Services;
@@ -78,6 +79,7 @@ namespace Confab.Shared.Infrastructure
                 .AddModuleRequests(assemblies)
                 .AddAuth(modules)
                 .AddEvents(assemblies)
+                .AddMessaging()
                 .AddHostedService<AppInitializer>()
                 .AddPostgres()
                 .AddSingleton<IClock, UtcClock>()
