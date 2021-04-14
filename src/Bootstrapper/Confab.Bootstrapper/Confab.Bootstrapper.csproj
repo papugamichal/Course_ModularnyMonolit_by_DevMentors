@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Modules\Agendas\Confab.Modules.Agendas.API\Confab.Modules.Agendas.API.csproj" />
     <ProjectReference Include="..\..\Modules\Conferences\Confab.Modules.Conferences.API\Confab.Modules.Conferences.API.csproj" />
     <ProjectReference Include="..\..\Modules\Speakers\Confab.Modules.Speakers.API\Confab.Modules.Speakers.API.csproj" />
     <ProjectReference Include="..\..\Modules\Tickets\Confab.Modules.Tickets.API\Confab.Modules.Tickets.API.csproj" />
