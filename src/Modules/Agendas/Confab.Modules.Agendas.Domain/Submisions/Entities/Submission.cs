@@ -41,7 +41,7 @@ namespace Confab.Modules.Agendas.Domain.Submisions.Entities
             => (Id, ConferenceId) = (id, conferenceId);
 
         public static Submission Create(AggregateId id, ConferenceId conferenceId,
-            string title, string description, int level, string status,
+            string title, string description, int level,
             IEnumerable<string> tags, ICollection<Speaker> speakers)
         {
             var submission = new Submission(id, conferenceId);

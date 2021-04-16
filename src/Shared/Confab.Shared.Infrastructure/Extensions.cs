@@ -8,6 +8,7 @@ using Confab.Shared.Abstraction.Modules;
 using Confab.Shared.Abstraction.Time;
 using Confab.Shared.Infrastructure.Api;
 using Confab.Shared.Infrastructure.Auth;
+using Confab.Shared.Infrastructure.Commands;
 using Confab.Shared.Infrastructure.Contexts;
 using Confab.Shared.Infrastructure.Events;
 using Confab.Shared.Infrastructure.Exceptions;
@@ -79,6 +80,7 @@ namespace Confab.Shared.Infrastructure
                 .AddModuleRequests(assemblies)
                 .AddAuth(modules)
                 .AddEvents(assemblies)
+                .AddCommands(assemblies)
                 .AddMessaging()
                 .AddHostedService<AppInitializer>()
                 .AddPostgres()
