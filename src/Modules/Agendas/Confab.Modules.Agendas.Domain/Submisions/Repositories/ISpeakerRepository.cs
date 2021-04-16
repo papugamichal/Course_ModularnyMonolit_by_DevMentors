@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Confab.Modules.Agendas.Domain.Submisions.Repositories
 {
-    interface ISpeakersRepository
+    public interface ISpeakerRepository
     {
         Task<bool> ExistsAsync(AggregateId id);
         Task<IEnumerable<Speaker>> BrowseAsync(IEnumerable<AggregateId> ids);

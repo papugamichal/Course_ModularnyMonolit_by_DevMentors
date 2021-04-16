@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Confab.Modules.Agendas.Domain.Submisions.Repositories
 {
-    interface ISubmissionRepository
+    public interface ISubmissionRepository
     {
         Task<Submission> GetAsync(AggregateId id);
         Task AddAsync(Submission submision);

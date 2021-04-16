@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Confab.Modules.Agendas.Domain.Submisions.Events
 {
-    public record SubmissionStatusChanged(Submission Submision, sting Status) : IDomainEvent
+    public record SubmissionStatusChanged(Submission Submision, string Status) : IDomainEvent
     {
     }
 }
