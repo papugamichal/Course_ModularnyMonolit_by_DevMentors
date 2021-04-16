@@ -9,4 +9,8 @@
     <ProjectReference Include="..\Confab.Modules.Agendas.Application\Confab.Modules.Agendas.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="QueryHandlers\" />
+  </ItemGroup>
+
 </Project>

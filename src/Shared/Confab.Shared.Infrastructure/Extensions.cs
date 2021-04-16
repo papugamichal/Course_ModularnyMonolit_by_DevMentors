@@ -15,6 +15,7 @@ using Confab.Shared.Infrastructure.Exceptions;
 using Confab.Shared.Infrastructure.Messaging;
 using Confab.Shared.Infrastructure.Modules;
 using Confab.Shared.Infrastructure.Postgres;
+using Confab.Shared.Infrastructure.Queries;
 using Confab.Shared.Infrastructure.Services;
 using Confab.Shared.Infrastructure.Time;
 using Microsoft.AspNetCore.Builder;
@@ -81,6 +82,7 @@ namespace Confab.Shared.Infrastructure
                 .AddAuth(modules)
                 .AddEvents(assemblies)
                 .AddCommands(assemblies)
+                .AddQueries(assemblies)
                 .AddMessaging()
                 .AddHostedService<AppInitializer>()
                 .AddPostgres()
