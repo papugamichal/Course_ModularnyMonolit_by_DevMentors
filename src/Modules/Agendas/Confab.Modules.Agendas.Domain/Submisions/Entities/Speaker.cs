@@ -17,6 +17,11 @@ namespace Confab.Modules.Agendas.Domain.Submisions.Entities
 
         public string FullName { get; init; }
 
+        // To satisfy EF Core many-to-many relation
+        public IEnumerable<Submission> Submisions => submisions;
+
+        private ICollection<Submission> submisions;
+
         public static Speaker Create(Guid id, string fullname)
             => new Speaker(id, fullname);
     }
