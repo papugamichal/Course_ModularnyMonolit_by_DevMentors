@@ -12,6 +12,7 @@ using Confab.Shared.Infrastructure.Commands;
 using Confab.Shared.Infrastructure.Contexts;
 using Confab.Shared.Infrastructure.Events;
 using Confab.Shared.Infrastructure.Exceptions;
+using Confab.Shared.Infrastructure.Kernel;
 using Confab.Shared.Infrastructure.Messaging;
 using Confab.Shared.Infrastructure.Modules;
 using Confab.Shared.Infrastructure.Postgres;
@@ -83,6 +84,7 @@ namespace Confab.Shared.Infrastructure
                 .AddEvents(assemblies)
                 .AddCommands(assemblies)
                 .AddQueries(assemblies)
+                .AddDominEvents(assemblies)
                 .AddMessaging()
                 .AddHostedService<AppInitializer>()
                 .AddPostgres()

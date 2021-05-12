@@ -1,13 +1,11 @@
-﻿using Confab.Modules.Agendas.Application.Exceptions;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Confab.Modules.Agendas.Application.Exceptions;
 using Confab.Modules.Agendas.Domain.Submisions.Entities;
 using Confab.Modules.Agendas.Domain.Submisions.Repositories;
 using Confab.Shared.Abstraction.Commands;
+using Confab.Shared.Abstraction.Kernel;
 using Confab.Shared.Abstraction.Kernel.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Confab.Modules.Agendas.Application.Submissions.Commands.Handlers
 {
@@ -15,12 +13,15 @@ namespace Confab.Modules.Agendas.Application.Submissions.Commands.Handlers
     {
         private readonly ISubmissionRepository submissionRepository;
         private readonly ISpeakerRepository speakerRepository;
+        private readonly IDomainEventHandlerDispatcher domainEventHandlerDispatcher;
 
         public CreateSubmissionHandler(ISubmissionRepository submissionRepository, 
-            ISpeakerRepository speakerRepository)
+            ISpeakerRepository speakerRepository,
+            IDomainEventHandlerDispatcher domainEventHandlerDispatcher)
         {
             this.submissionRepository = submissionRepository;
             this.speakerRepository = speakerRepository;
+            this.domainEventHandlerDispatcher = domainEventHandlerDispatcher;
         }
 
         public async Task HandleAsync(CreateSubmission command)
@@ -37,6 +38,7 @@ namespace Confab.Modules.Agendas.Application.Submissions.Commands.Handlers
                 command.Description, command.Level, command.Tags, speakers.ToList());
 
             await this.submissionRepository.AddAsync(submission);
+            await this.domainEventHandlerDispatcher.DispatchAsync(submission.Event.ToArray());
         }
     }
 }

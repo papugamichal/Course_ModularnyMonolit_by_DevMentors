@@ -1,23 +1,22 @@
-﻿using Confab.Modules.Agendas.Application.Exceptions;
-using Confab.Modules.Agendas.Domain.Submisions.Entities;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Confab.Modules.Agendas.Application.Exceptions;
 using Confab.Modules.Agendas.Domain.Submisions.Repositories;
 using Confab.Shared.Abstraction.Commands;
-using Confab.Shared.Abstraction.Kernel.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Confab.Shared.Abstraction.Kernel;
 
 namespace Confab.Modules.Agendas.Application.Submissions.Commands.Handlers
 {
-    internal class ApproveSubmissionHandler : ICommandHandler<ApproveSubmission>
+    internal sealed class ApproveSubmissionHandler : ICommandHandler<ApproveSubmission>
     {
         private readonly ISubmissionRepository submissionRepository;
+        private readonly IDomainEventHandlerDispatcher domainEventHandlerDispatcher;
 
-        public ApproveSubmissionHandler(ISubmissionRepository submissionRepository)
+        public ApproveSubmissionHandler(ISubmissionRepository submissionRepository, 
+            IDomainEventHandlerDispatcher domainEventHandlerDispatcher)
         {
             this.submissionRepository = submissionRepository;
+            this.domainEventHandlerDispatcher = domainEventHandlerDispatcher;
         }
 
         public async Task HandleAsync(ApproveSubmission command)
@@ -30,6 +29,7 @@ namespace Confab.Modules.Agendas.Application.Submissions.Commands.Handlers
 
             submission.Approve();
             await this.submissionRepository.UpdateAsync(submission);
+            await this.domainEventHandlerDispatcher.DispatchAsync(submission.Event.ToArray());
         }
     }
 }
