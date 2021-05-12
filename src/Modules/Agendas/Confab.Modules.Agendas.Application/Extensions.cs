@@ -1,10 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Confab.Modules.Agendas.Application.Submissions.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Confab.Modules.Agendas.Application
 {
@@ -13,6 +8,7 @@ namespace Confab.Modules.Agendas.Application
         public static IServiceCollection AddApplication(
             this IServiceCollection services)
         {
+            services.AddSingleton<IEventMapper, EventMapper>();
             return services;
         }
     }
