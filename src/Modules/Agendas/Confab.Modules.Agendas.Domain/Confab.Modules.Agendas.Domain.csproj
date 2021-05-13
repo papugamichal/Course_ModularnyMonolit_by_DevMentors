@@ -8,4 +8,9 @@
     <ProjectReference Include="..\..\..\Shared\Confab.Shared.Abstraction\Confab.Shared.Abstraction.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Agendas\Exceptions\" />
+    <Folder Include="Agendas\Events\" />
+  </ItemGroup>
+
 </Project>

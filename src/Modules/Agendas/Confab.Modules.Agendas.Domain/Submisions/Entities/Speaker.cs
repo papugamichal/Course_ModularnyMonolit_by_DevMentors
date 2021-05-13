@@ -1,9 +1,6 @@
-﻿using Confab.Shared.Abstraction.Kernel.Types;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Confab.Shared.Abstraction.Kernel.Types;
 
 namespace Confab.Modules.Agendas.Domain.Submisions.Entities
 {

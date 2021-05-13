@@ -1,10 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Confab.Modules.Agendas.Domain.Agendas.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Confab.Modules.Agendas.Domain
 {
@@ -13,6 +8,7 @@ namespace Confab.Modules.Agendas.Domain
         public static IServiceCollection AddDomain(
             this IServiceCollection services)
         {
+            services.AddScoped<IAgendaTracksDomainService, AgendaTracksDomainService>();
             return services;
         }
     }
