@@ -10,8 +10,8 @@ namespace Confab.Shared.Infrastructure.Modules
     public interface IModuleSerializer
     {
         byte[] Serialize<T>(T value);
-        T Deserialzie<T>(byte[] values);
-        object Deserialzie(byte[] values, Type type);
+        T Deserialize<T>(byte[] values);
+        object Deserialize(byte[] values, Type type);
     }
 
     internal sealed class JsonModuleSerializer : IModuleSerializer 
@@ -21,12 +21,12 @@ namespace Confab.Shared.Infrastructure.Modules
             PropertyNameCaseInsensitive = true
         };
 
-        public T Deserialzie<T>(byte[] values)
+        public T Deserialize<T>(byte[] values)
         {
             return JsonSerializer.Deserialize<T>(Encoding.UTF8.GetString(values), serializerOptions);
         }
 
-        public object Deserialzie(byte[] values, Type type)
+        public object Deserialize(byte[] values, Type type)
         {
             return JsonSerializer.Deserialize(Encoding.UTF8.GetString(values), type, serializerOptions);
         }

@@ -1,9 +1,7 @@
-﻿using Confab.Shared.Abstraction.Modules;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Confab.Shared.Abstraction.Modules;
 
 namespace Confab.Shared.Infrastructure.Modules
 {
@@ -33,7 +31,24 @@ namespace Confab.Shared.Infrastructure.Modules
             await Task.WhenAll(tasks);
         }
 
+        public async Task<TResult> SendAsync<TResult>(string path, object request) where TResult : class
+        {
+            var registration = moduleRegistry.GetRequestRegistrations(path);
+            if (registration is null)
+            {
+                throw new InvalidOperationException($"No action has been defined for path: '{path}'");
+            }
+
+            var receiverRequest = TranslateType(request, registration.RequestType);
+            var result = await registration.Action(receiverRequest);
+
+            return result is null ? null : TranslateType<TResult>(result);
+        }
+
         private object TranslateType(object value, Type type)
-            => this.moduleSerializer.Deserialzie(this.moduleSerializer.Serialize(value), type);
+            => this.moduleSerializer.Deserialize(this.moduleSerializer.Serialize(value), type);
+
+        private T TranslateType<T>(object value)
+            => this.moduleSerializer.Deserialize<T>(this.moduleSerializer.Serialize(value));
     }
 }

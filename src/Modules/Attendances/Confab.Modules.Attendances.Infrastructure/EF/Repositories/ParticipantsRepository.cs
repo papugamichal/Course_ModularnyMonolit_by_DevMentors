@@ -4,7 +4,7 @@ using Confab.Modules.Attendances.Domain.Entities;
 using Confab.Modules.Attendances.Domain.Events;
 using Confab.Modules.Attendances.Domain.Repositories;
 using Confab.Modules.Attendances.Domain.Types;
-using Confab.Shared.Abstractions.Kernel.Types;
+using Confab.Shared.Abstraction.Kernel.Types;
 using Microsoft.EntityFrameworkCore;
 
 namespace Confab.Modules.Attendances.Infrastructure.EF.Repositories

@@ -1,6 +1,6 @@
 ﻿using Confab.Modules.Attendances.Domain.Entities;
 using Confab.Modules.Attendances.Domain.Types;
-using Confab.Shared.Abstractions.Kernel.Types;
+using Confab.Shared.Abstraction.Kernel.Types;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

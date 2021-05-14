@@ -39,9 +39,9 @@ namespace Confab.Modules.Agendas.Application.Submissions.Commands.Handlers
             submission.Reject();
 
             await this.submissionRepository.UpdateAsync(submission);
-            await this.domainEventHandlerDispatcher.DispatchAsync(submission.Event.ToArray());
+            await this.domainEventHandlerDispatcher.DispatchAsync(submission.Events.ToArray());
 
-            var events = eventMapper.MapAll(submission.Event);
+            var events = eventMapper.MapAll(submission.Events);
             await messageBroker.PublishAsync(events.ToArray());
         }
     }

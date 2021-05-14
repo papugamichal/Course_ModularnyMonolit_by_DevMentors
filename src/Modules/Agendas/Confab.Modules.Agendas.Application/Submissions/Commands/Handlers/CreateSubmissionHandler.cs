@@ -62,9 +62,9 @@ namespace Confab.Modules.Agendas.Application.Submissions.Commands.Handlers
                 command.Description, command.Level, command.Tags, speakers.ToList());
 
             await this.submissionRepository.AddAsync(submission);
-            await this.domainEventHandlerDispatcher.DispatchAsync(submission.Event.ToArray());
+            await this.domainEventHandlerDispatcher.DispatchAsync(submission.Events.ToArray());
             
-            var events = eventMapper.MapAll(submission.Event);
+            var events = eventMapper.MapAll(submission.Events);
             await messageBroker.PublishAsync(events.ToArray());
 
         }

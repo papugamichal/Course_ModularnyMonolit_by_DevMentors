@@ -7,7 +7,7 @@ namespace Confab.Shared.Abstraction.Kernel.Types
     {
         public T Id { get; protected set; }
         public int Version { get; set; }
-        public IEnumerable<IDomainEvent> Event => domainEvents;
+        public IEnumerable<IDomainEvent> Events => domainEvents;
 
 
         private readonly List<IDomainEvent> domainEvents = new();

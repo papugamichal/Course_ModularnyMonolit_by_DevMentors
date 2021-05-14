@@ -25,8 +25,13 @@ namespace Confab.Shared.Infrastructure.Modules
             services.AddModuleRegistry(assemblies);
             services.AddSingleton<IModuleClient, ModuleClient>();
             services.AddSingleton<IModuleSerializer, JsonModuleSerializer>();
+
+            services.AddSingleton<IModuleSubscriber, ModuleSubscriber>();
             return services;
         }
+
+        public static IModuleSubscriber UseModuleRequest(this IApplicationBuilder app)
+            => app.ApplicationServices.GetRequiredService<IModuleSubscriber>();
 
         private static void AddModuleRegistry(
             this IServiceCollection services,
