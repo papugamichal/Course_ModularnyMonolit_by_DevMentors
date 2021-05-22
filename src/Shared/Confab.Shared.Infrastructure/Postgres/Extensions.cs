@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Confab.Shared.Abstraction.Commands;
+using Confab.Shared.Infrastructure.Postgres.Decorators;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,7 +13,16 @@ namespace Confab.Shared.Infrastructure.Postgres
             var options = services.GetOptions<PostgresOptions>("postgres");
             services
                 .AddSingleton(options)
+                .AddSingleton(new UnitOfWorkTypeRegistry())
                 ;
+
+            return services;
+        }
+
+        public static IServiceCollection AddTransactionalDecorators(this IServiceCollection services)
+        {
+            services.TryDecorate(typeof(ICommandHandler<>), typeof(TransactionalCommandDecorator<>));
+
 
             return services;
         }
@@ -31,5 +37,19 @@ namespace Confab.Shared.Infrastructure.Postgres
 
             return services;
         }
+
+        public static IServiceCollection AddPostgresUnitOfWork<TUnitOfWork, TImplementation>(
+            this IServiceCollection services) where TUnitOfWork : class, IUnitOfWork where TImplementation : class, TUnitOfWork
+        {
+            services.AddScoped<TUnitOfWork, TImplementation>();
+            services.AddScoped<IUnitOfWork, TImplementation>();
+
+            using var serviceProvider = services.BuildServiceProvider();
+            serviceProvider.GetRequiredService<UnitOfWorkTypeRegistry>().Register<TUnitOfWork>();
+
+            return services;
+        }
+
+
     }
 }

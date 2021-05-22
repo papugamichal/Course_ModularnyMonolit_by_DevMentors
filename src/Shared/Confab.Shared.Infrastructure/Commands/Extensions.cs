@@ -1,11 +1,7 @@
-﻿using Confab.Shared.Abstraction.Commands;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using Confab.Shared.Abstraction.Commands;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Confab.Shared.Infrastructure.Commands
 {
@@ -21,7 +17,8 @@ namespace Confab.Shared.Infrastructure.Commands
 
             services
                 .Scan(x => x.FromAssemblies(assemblies)
-                    .AddClasses(c => c.AssignableTo(typeof(ICommandHandler<>)))
+                    .AddClasses(c => 
+                        c.AssignableTo(typeof(ICommandHandler<>)).WithoutAttribute<DecoratorAttribute>())
                     .AsImplementedInterfaces()
                     .WithScopedLifetime())
                 ;

@@ -88,6 +88,7 @@ namespace Confab.Shared.Infrastructure
                 .AddMessaging()
                 .AddHostedService<AppInitializer>()
                 .AddPostgres()
+                .AddTransactionalDecorators()
                 .AddSingleton<IClock, UtcClock>()
                 .AddErrorHandling()
                 .AddControllers()
@@ -143,6 +144,23 @@ namespace Confab.Shared.Infrastructure
             var options = new T();
             configuration.GetSection(sectionName).Bind(options);
             return options;
+        }
+
+        public static string GetModuleName(this object value)
+        {
+            return value?.GetType().GetModuleName() ?? string.Empty;
+        }
+
+        public static string GetModuleName(this Type type)
+        {
+            if (type?.Namespace is null)
+            {
+                return string.Empty;
+            }
+
+            return type.Namespace.StartsWith("Confab.Modules.") 
+                ? type.Namespace.Split('.')[2].ToLowerInvariant()
+                : string.Empty;
         }
     }
 }

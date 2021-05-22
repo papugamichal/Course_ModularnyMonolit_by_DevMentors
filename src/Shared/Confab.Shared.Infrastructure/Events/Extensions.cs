@@ -1,11 +1,7 @@
-﻿using Confab.Shared.Abstraction.Events;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using Confab.Shared.Abstraction.Events;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Confab.Shared.Infrastructure.Events
 {
@@ -21,7 +17,7 @@ namespace Confab.Shared.Infrastructure.Events
 
             services
                 .Scan(x => x.FromAssemblies(assemblies)
-                    .AddClasses(c => c.AssignableTo(typeof(IEventHandler<>)))
+                    .AddClasses(c => c.AssignableTo(typeof(IEventHandler<>)).WithoutAttribute<DecoratorAttribute>())
                     .AsImplementedInterfaces()
                     .WithScopedLifetime())
                 ;

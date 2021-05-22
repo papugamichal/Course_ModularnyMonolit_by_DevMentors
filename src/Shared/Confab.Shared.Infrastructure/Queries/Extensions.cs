@@ -1,11 +1,7 @@
-﻿using Confab.Shared.Abstraction.Queries;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using Confab.Shared.Abstraction.Queries;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Confab.Shared.Infrastructure.Queries
 {
@@ -21,7 +17,7 @@ namespace Confab.Shared.Infrastructure.Queries
 
             services
                 .Scan(x => x.FromAssemblies(assemblies)
-                    .AddClasses(c => c.AssignableTo(typeof(IQueryHandler<,>)))
+                    .AddClasses(c => c.AssignableTo(typeof(IQueryHandler<,>)).WithoutAttribute<DecoratorAttribute>())
                     .AsImplementedInterfaces()
                     .WithScopedLifetime())
                 ;
