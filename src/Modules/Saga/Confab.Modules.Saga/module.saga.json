@@ -1,0 +1,8 @@
+{
+  "speakers": {
+    "module": {
+      "name": "Saga",
+      "enabled": true
+    }
+  }
+}

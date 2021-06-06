@@ -31,6 +31,9 @@ namespace Confab.Shared.Infrastructure.Modules
             await Task.WhenAll(tasks);
         }
 
+        public Task SendAsync(string path, object request)
+            => SendAsync<Task>(path, request);
+
         public async Task<TResult> SendAsync<TResult>(string path, object request) where TResult : class
         {
             var registration = moduleRegistry.GetRequestRegistrations(path);
